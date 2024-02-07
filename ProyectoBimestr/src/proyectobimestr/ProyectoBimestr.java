@@ -1,7 +1,9 @@
-package proyectobimestr;
+package proyectobimestralpro2;
+
 import java.io.File;
 import java.util.Scanner;
-public class ProyectoBimestr {
+
+public class ProyectoBimestralPro2 {
     public static void main(String[] args) {
         Scanner tecla = new Scanner(System.in);
         int horario, cantidadNormal, cantidadPrefer, asist = 0, limFilas = 1000, fil = 18, colum = 7;
@@ -12,8 +14,7 @@ public class ProyectoBimestr {
         double[][] datos = new double[limFilas][colum];
         String[][] archivoJava = new String[fil][colum];
         do {
-            fechaArchivos(archivoJava);// llamo la funcion del archivo
-            //escribo el archivo en una matriz 
+            fechaArchivos(archivoJava);
             System.out.println("     ARTISTAS \t\t\t| DIAS \t\t| NUM \t|\t MES \t|\t FUNCIONES \t|Normal |Prefer |");
             for (int i = 0; i < fil; i++) {
                 for (int j = 0; j < colum; j++) {
@@ -25,7 +26,8 @@ public class ProyectoBimestr {
                     "=================================================================================================================");
             System.out.print("Ingrese el nombre del cliente: ");
             nombre = tecla.nextLine();
-            System.out.println("=================================================================================================================");
+            System.out.println(
+                    "=================================================================================================================");
             System.out.println("Hola " + nombre + " a continuacion llena los datos en base al cronograma de arriba =D");
             System.out.print("Ingrese la fecha el cual desea asistir (Ejemplo: Sabado): ");
             diaAsis = tecla.nextLine();
@@ -39,7 +41,6 @@ public class ProyectoBimestr {
                     "Ingrese el horario el cual desea asistir (ingrese el numeral del horario a escoger): \n 1. Horario Normal (Empieza a partir de las 02:01 am hasta las 17:59 pm) \n 2. Horario Nocturno  (Empieza a partir de las 18:00 pm hasta las 02:00 am)");
             horario = tecla.nextInt();
             System.out.println("---------------------------------------------------------------");
-            // En base a lo escogido muestra el costo del boleto del dia en cuestion
             for (int i = 0; i < fil; i++) {
                 for (int j = 0; j < colum; j++) {
                     if ((diaAsis.equals(archivoJava[i][1])) && (fechaAsis.equals(archivoJava[i][2]))
@@ -60,11 +61,11 @@ public class ProyectoBimestr {
             cantidadPrefer = tecla.nextInt();
 
             // llamado de funciones de las tarifas
-            tarifaNormal = tarifaNormal(diaAsis, fechaAsis, mesAsis, horario);// En base al horario escogido se toma el costo del valor que corresponde
-            tarifaPreferencial = tarifaPreferencial(diaAsis, fechaAsis, mesAsis, horario); // Lo mismo de arriba (linea 63) pero con tarifa preferencial
-            totalNormal = totalNormal(tarifaNormal, cantidadNormal); //Multiplica el costo correspondiente con la cantidad ingresada
-            totalPreferencial = totalPrefer(tarifaPreferencial, cantidadPrefer); // Lo mismo de arriba (linea 65)
-            totalAPagar = totalAPagar + (totalNormal + totalPreferencial); // Saca el costo final sumando la linea 64 y 65
+            tarifaNormal = tarifaNormal(diaAsis, fechaAsis, mesAsis, horario);
+            tarifaPreferencial = tarifaPreferencial(diaAsis, fechaAsis, mesAsis, horario);
+            totalNormal = totalNormal(tarifaNormal, cantidadNormal);
+            totalPreferencial = totalPrefer(tarifaPreferencial, cantidadPrefer);
+            totalAPagar = totalAPagar + (totalNormal + totalPreferencial);
 
             System.out.println("---------FACTURA FINAL------------------");
             System.out.println("Cliente: " + nombre);
@@ -77,21 +78,20 @@ public class ProyectoBimestr {
             System.out.println("----------------------------------------------------------");
             System.out.println("Desea ingresar compra de un nuevo cliente? (Si/no): ");
             respuesta = tecla.next();
-            tecla.nextLine();//Consumo una linea ya que si le quito esto al momento de poner "Si" en el nuevo ciclo no me deja ingresar nombre
-            //Guardo unos datos para mostrar al final
+            tecla.nextLine();
+
             cliente[asist] = nombre;
             datos[asist][0] = cantidadNormal;
             datos[asist][1] = cantidadPrefer;
             datos[asist][2] = tarifaNormal;
             datos[asist][3] = tarifaPreferencial;
             datos[asist][4] = totalAPagar;
-            //Contador de asistentes sirve para ver cuantos clientes compraron boletos (OJO solo clientes que compraron no personas que asistiran)
+
             asist = asist + 1;
 
         } while (respuesta.equalsIgnoreCase("Si") || respuesta.equalsIgnoreCase("si"));
 
         if ("No".equalsIgnoreCase(respuesta)) {
-            // Estadistica incompleta 
             System.out.println(
                     "--------------------------------------------------------ESTADISTICA FINAL----------------------------------------------------------------------------");
             System.out.printf(
